@@ -1,29 +1,26 @@
-import React from 'react';
-import styled from "@emotion/styled"
-import {Box, AppBar, Toolbar } from '@mui/material';
+import React from "react";
+import styled from "@emotion/styled";
+import { AppBar, Toolbar } from "@mui/material";
 
-const StyledBox = styled(Box)`
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-left: 16px;
-    padding-right: 16px;
-    min-height: 56px;
-`
-
-const StyledToolbar = styled(Toolbar)`
+const StyledAppBar = styled(AppBar)`
   background-color: #343434;
-  
-`
+  position: absolute;
+  border-radius: 1.25rem;
+`;
+
+const StyledNav = styled("nav")`
+  position: absolute;
+  top: 1.875rem;
+  right: 1.3rem;
+  left: 1.25rem;
+`;
 
 export const NavBar = () => {
   return (
-    <nav>
-      <StyledBox>
-        <AppBar>
-          <StyledToolbar></StyledToolbar>
-        </AppBar>
-      </StyledBox>
-    </nav>
-  )
-}
+    <StyledNav>
+      <StyledAppBar>
+        <Toolbar></Toolbar>
+      </StyledAppBar>
+    </StyledNav>
+  );
+};
