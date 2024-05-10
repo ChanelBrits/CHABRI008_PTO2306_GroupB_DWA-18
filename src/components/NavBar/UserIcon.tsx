@@ -1,31 +1,30 @@
 import { Avatar, Button } from "@mui/material";
 import styled from "@emotion/styled";
 
+const StyledButton = styled(Button)`
+  && {
+    padding: 0;
+    margin-left: 1rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 1rem;
+    border: none;
+  }
+`
 
 const StyledAvatar = styled(Avatar)`
   background-color: #474747;
   color: #343434;
   border-radius: 1rem;
-  width: 3.125rem;
-  height: 3.125rem;
+  width: 100%;
+  height: 100%;
 `
-
-const StyledButton = styled(Button)`
-  border-radius: 1rem;
-  border: none;
-  width: 3.125rem;
-  height: 3.125rem;
-`
-
-
 
 export const UserIcon = () => {
     return (
-      <div>
         <StyledButton>
-            <StyledAvatar src="/static/images/default" />
+            <StyledAvatar src="/static/images/default"/>
         </StyledButton>
-      </div>
     );
   };
   

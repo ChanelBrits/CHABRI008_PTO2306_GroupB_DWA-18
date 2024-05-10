@@ -10,7 +10,7 @@ const StyledNav = styled("nav")`
   top: 1.875rem;
   right: 1.3rem;
   left: 1.25rem;
-  height: 5rem;
+  height: 4.5rem;
 `;
 
 const StyledAppBar = styled(AppBar)`
@@ -21,12 +21,14 @@ const StyledAppBar = styled(AppBar)`
 `;
 
 const StyledToolbar = styled(Toolbar)`
+  && {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  padding-left: 0;
-  padding-right: 0;
 `;
 
 
