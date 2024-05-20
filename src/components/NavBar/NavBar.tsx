@@ -14,7 +14,7 @@ const StyledNav = styled("nav")`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  background-color: #343434;
+  background-color: #1A2121;
   position: absolute;
   border-radius: 0.625rem;
   height: 100%;
@@ -35,11 +35,11 @@ const StyledToolbar = styled(Toolbar)`
 export const NavBar = () => {
   return (
     <StyledNav>
-      <StyledAppBar>
+      <StyledAppBar >
         <StyledToolbar>
           <Home></Home>
-          <Search></Search>
-          <UserIcon></UserIcon>
+          <Search ></Search>
+          <UserIcon color="primary"></UserIcon>
         </StyledToolbar>
       </StyledAppBar>
     </StyledNav>

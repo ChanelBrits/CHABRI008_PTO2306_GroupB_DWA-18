@@ -13,8 +13,8 @@ const StyledButton = styled(Button)`
 `
 
 const StyledAvatar = styled(Avatar)`
-  background-color: #474747;
-  color: #343434;
+  background-color: #2B3232;
+  color: #004F54;
   border-radius: 1rem;
   width: 100%;
   height: 100%;
