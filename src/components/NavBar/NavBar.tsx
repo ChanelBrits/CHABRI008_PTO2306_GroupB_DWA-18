@@ -4,6 +4,7 @@ import { AppBar, Toolbar } from "@mui/material";
 import { UserIcon } from "./UserIcon"
 import { Search } from "./Search";
 import { Home } from "./Home";
+import { SettingsModal } from "./SettingsModal";
 
 const StyledNav = styled("nav")`
   position: absolute;
@@ -31,15 +32,26 @@ const StyledToolbar = styled(Toolbar)`
   align-items: center; 
 `;
 
-
 export const NavBar = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleUserIcon = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    }
+
   return (
     <StyledNav>
       <StyledAppBar >
         <StyledToolbar>
           <Home></Home>
           <Search ></Search>
-          <UserIcon color="primary"></UserIcon>
+          <UserIcon 
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          open={open}
+          ></UserIcon>
+          {open && (<SettingsModal anchorEl={anchorEl} setAnchorEl={setAnchorEl} open={open} />)}
         </StyledToolbar>
       </StyledAppBar>
     </StyledNav>

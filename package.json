@@ -14,11 +14,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fontsource-variable/quicksand": "^5.0.18",
     "@material/theme": "^14.0.0",
     "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.15.16",
     "@react-spring/web": "^9.7.3",
     "@shoelace-style/shoelace": "^2.15.0",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.43.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-material-ui-carousel": "^3.4.2"

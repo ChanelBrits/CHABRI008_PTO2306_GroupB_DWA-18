@@ -19,10 +19,25 @@ const StyledAvatar = styled(Avatar)`
   width: 100%;
   height: 100%;
 `
+interface Props {
+  anchorEl: null | HTMLElement;
+  setAnchorEl: (element: HTMLElement | null) => void;
+  open: boolean
+}
 
-export const UserIcon = () => {
+
+export const UserIcon:Props = ({anchorEl, setAnchorEl, open}) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
     return (
-        <StyledButton>
+        <StyledButton 
+        onClick={handleClick}
+        id="user-button"
+        aria-controls={open ? 'user-button' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        >
             <StyledAvatar src="/static/images/default"/>
         </StyledButton>
     );

@@ -4,9 +4,10 @@ import { NavBar } from './components/NavBar/NavBar'
 import { Show } from './components/Home/Show'
 import { Carousel } from './components/Home/Carousel'
 
+
 export const App = () => {
-  const api:Api = createApi();
-  const [previewData, setPreviewData ] = useState();
+  // const api:Api = createApi();
+  // const [previewData, setPreviewData ] = useState();
 
   // useEffect(() => {
   //   api.getPreviewData()
