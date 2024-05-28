@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { Box, Typography, ButtonBase, TextField } from "@mui/material";
+import { Box, Typography, ButtonBase } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '@fontsource-variable/quicksand';
+import { useNavigate } from "react-router-dom"
 
 const textTheme = createTheme({
     typography: {
@@ -41,44 +42,21 @@ const StyledLandingImage = styled("img")({
 const StyledButtonBase = styled(ButtonBase)({
     backgroundColor: "#52f4ff",
     borderRadius: "2rem",
-    width: "10rem",
+    fontSize: "1rem",
+    fontWeight: "700",
+    width: "15rem",
     height: "3rem",
     marginRight: "1rem",
-    color: "#0e1515"
+    marginTop: "2rem",
+    color: "#0e1515",
+    alignSelf: "center"
 })
 
-const FormWrapper = styled(Box)({
-    display: "flex",
-    alignItems: "center",
-    marginTop: "2rem",
-    height: "2rem",
-  });
-  
-const StyledTextField = styled(TextField)({
-    marginRight: "1rem",
-    backgroundColor: "#1a2121",
 
-    borderRadius: "4px",
-    "& .MuiInputBase-input": {
-        color: "white",
-        height: "1.5rem", 
-        padding: "0.75rem",
-    },
-    "& .MuiOutlinedInput-root": {
-        height: "3rem",
-        "& fieldset": {
-        borderColor: "#52f4ff",
-        },
-        "&:hover fieldset": {
-        borderColor: "#1ec5e5",
-        },
-        "&.Mui-focused fieldset": {
-        borderColor: "#52f4ff",
-        },
-    },
-});
 
 export const Landing = () => {
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={textTheme}>
         <StyledBox>
@@ -91,10 +69,8 @@ export const Landing = () => {
             Welcome to Novacast, your gateway to the universe of podcasts! Whether you're into deep-dive interviews, thrilling stories, or insightful discussions, Novacast brings you closer to the voices and stories that matter. Discover new favorites, explore diverse genres, and immerse yourself in captivating content, all in one sleek and user-friendly app.
             </Typography>
 
-            <FormWrapper>
-                <StyledTextField variant="outlined" placeholder="Your Email" />
-                <StyledButtonBase>Get Started</StyledButtonBase>
-            </FormWrapper>
+            <StyledButtonBase onClick={() => { navigate("/login") }}>Get Started</StyledButtonBase>
+
         </LeftSection>
         <RightSection>
             <StyledLandingImage src="./public/LandingDesign.png" alt="Two people sitting with a microphone" />
