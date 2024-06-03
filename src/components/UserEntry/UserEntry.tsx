@@ -19,7 +19,7 @@ const ValidationTextField = styled(TextField)({
     '& input:valid:focus + fieldset': {
         borderColor: "#52f4ff !important",
       borderLeftWidth: 4,
-      padding: '4px !important', // override inline-style
+      padding: '4px !important', 
     },
   });
 
@@ -46,7 +46,7 @@ const StyledButton = styled(Button)`
     color: #2b3232;
     margin: 1rem;
     border-radius: 2rem;
-    & :hover {
+    &:hover {
         background-color: #52f4ff;
       },
 `

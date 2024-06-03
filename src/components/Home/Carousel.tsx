@@ -1,10 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
-import { IconButton, Box, Slide, Stack, Grid, styled} from "@mui/material";
+import { IconButton, Box, Slide, Stack, Grid, styled, Typography} from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Show } from "./Show";
 
 const StyledIconButton = styled(IconButton)(({ theme, disabled }) => ({
   marginRight: "1rem",
@@ -14,35 +11,24 @@ const StyledIconButton = styled(IconButton)(({ theme, disabled }) => ({
   color: disabled ? theme.palette.text.disabled : "#52f4ff",
 }));
 
-// const StyledIconButton = styled(IconButton)`
-//   marginRight: "1rem",
-//   marginLeft: "1rem",
-//   display: "flex",
-//   alignItems: "center",
-//   && {
-//     color: "#52f4ff",
-//   }
-// `
+interface Carousel {
+  title: string;
+  cardsData: React.ReactElement[];
+}
 
-export const Carousel = () => {
-  const [cards, setCards] = useState<React.ReactElement[]>([]);
+export const Carousel:React.FC<Carousel> = ({ title, cardsData }) => {
+  const [cards, setCards] = useState<React.ReactElement[]>(cardsData);
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
 
-
-  const cardsPerPage = 3;
-
-  const duplicateCards: React.ReactElement[] = Array.from(
-        { length: 10 },
-        (_, i) => <Show key={i} />
-      );
+  const cardsPerPage = 5;
 
   useEffect(() => {
-    setCards(duplicateCards);
+    setCards(cardsData);
     // eslint-disable-next-line
-  }, []);
+  }, [cardsData]);
 
   const handleNextPage = () => {
         setSlideDirection("left");
@@ -68,17 +54,18 @@ export const Carousel = () => {
             // lg={3} 
             key={`card-${index}`}
             sx={{
-              width: "12rem",
-              height: "18rem",
+              flex: "1 1 0",
               display: "flex",
               justifyContent: "center",
+              margin: "0.5rem",
+              minWidth: "0",
             }}
             >
             <Box
               sx={{
-                width: "12rem",
-                height: "18rem",
-                display: "block",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
                 margin: "1rem",
               }}
             >
@@ -86,7 +73,7 @@ export const Carousel = () => {
                 <Stack 
                 direction="row"
                 sx={{
-                  width: "12rem", 
+                  width: "100%", 
                   height: "100%",
                   display: "flex",
                   flexWrap: "wrap",
@@ -105,46 +92,60 @@ export const Carousel = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
-        alignContent: "center",
-        justifyContent: "center",
-        height: "20rem",
-        maxWidth: "80%",
-        marginTop: "40px",
-        margin: "1rem",
-        backgroundColor: "#1a2121",
-        borderRadius: "2rem",
-        overflow: "hidden",
+        flexDirection: "column",
       }}
     >
-      <Grid 
-        container  
-        sx={{
-          flexGrow: 1,
-        }}>
+      <Typography 
+        variant="h4" 
+        sx={{ color: "#fff", 
+        marginLeft: "2.5rem" 
+      }}
+        >{title}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "center",
+            justifyContent: "center",
+            height: "20rem",
+            maxWidth: "80%",
+            marginTop: "40px",
+            margin: "1rem",
+            backgroundColor: "#1a2121",
+            borderRadius: "2rem",
+            overflow: "hidden",
+          }}
+        >
+          <Grid 
+            container
+            spacing={2}
+            sx={{
+              flexGrow: 1,
+              
+            }}
+            >
 
-      <StyledIconButton
-        onClick={handlePrevPage}
-        disabled={currentPage === 0}
-        sx={{ 
-          marginRight: "1rem" 
-        }}
-      >
-      <ArrowBackIosIcon fontSize="large" sx={{color: "#52f4ff"}}/>
-      </StyledIconButton>
+          <StyledIconButton
+            onClick={handlePrevPage}
+            disabled={currentPage === 0}
+            sx={{ 
+              marginRight: "1rem" 
+            }}
+          >
+          <ArrowBackIosIcon fontSize="large" sx={{color: "#52f4ff"}}/>
+          </StyledIconButton>
 
-        {renderCards()}
-        
-      </Grid>
-      <StyledIconButton
-          onClick={handleNextPage}
-          disabled={
-            currentPage >= Math.ceil((cards.length || 0) / cardsPerPage) - 1}
-      >
-        <ArrowForwardIosIcon fontSize="large" />
-      </StyledIconButton>
+            {renderCards()}
+            
+          </Grid>
+          <StyledIconButton
+              onClick={handleNextPage}
+              disabled={
+                currentPage >= Math.ceil((cards.length || 0) / cardsPerPage) - 1}
+          >
+            <ArrowForwardIosIcon fontSize="large" />
+          </StyledIconButton>
+      </Box>
     </Box>
   )
 }
-
-// sx={{color: "#52f4ff"}}

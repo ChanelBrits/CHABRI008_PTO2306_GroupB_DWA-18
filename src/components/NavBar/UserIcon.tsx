@@ -14,7 +14,6 @@ const StyledButton = styled(Button)`
 
 const StyledAvatar = styled(Avatar)`
   background-color: #2B3232;
-  color: #004F54;
   border-radius: 1rem;
   width: 100%;
   height: 100%;
@@ -22,11 +21,11 @@ const StyledAvatar = styled(Avatar)`
 interface Props {
   anchorEl: null | HTMLElement;
   setAnchorEl: (element: HTMLElement | null) => void;
-  open: boolean
+  open: boolean;
 }
 
 
-export const UserIcon:Props = ({anchorEl, setAnchorEl, open}) => {
+export const UserIcon:React.FC<Props> = ({anchorEl, setAnchorEl, open}) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }

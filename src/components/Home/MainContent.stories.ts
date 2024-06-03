@@ -1,9 +1,9 @@
-import { Carousel } from "./Carousel"
+import { MainContent } from "./MainContent"
 import { Meta, StoryObj } from "@storybook/react"
 
 const meta:Meta = {
-    title: "components/Carousel",
-    component: Carousel,
+    title: "components/MainContent",
+    component: MainContent,
 }
 
 export default meta;

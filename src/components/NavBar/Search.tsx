@@ -27,7 +27,7 @@ export const Search = () => {
     return (
       <SearchBar>
         <SearchIconWrapper>
-            <SearchIcon fontSize="medium" color="secondary"/>
+            <SearchIcon fontSize="medium"/>
         </SearchIconWrapper>
         <StyledInputBase placeholder="Search..." inputProps={{ 'aria-label': 'search', style: { color: 'white' }}}></StyledInputBase>
       </SearchBar>
