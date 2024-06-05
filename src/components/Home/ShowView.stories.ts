@@ -1,9 +1,9 @@
-import { MainContent } from "./MainContent"
+import { ShowView } from "./ShowView"
 import { Meta, StoryObj } from "@storybook/react"
 
 const meta:Meta = {
-    title: "components/MainContent",
-    component: MainContent,
+    title: "components/ShowView",
+    component: ShowView,
 }
 
 export default meta;

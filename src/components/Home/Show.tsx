@@ -1,11 +1,7 @@
-import { Card, Typography, Box } from '@mui/material/'
+import { Card, Typography, Box, Skeleton } from "@mui/material/"
+import { useStore } from "zustand"
 import styled from "@emotion/styled";
-
-export type Show = {
-    title: string;
-    seasons: number;
-    dateAdded: Date;
-  }
+import { Store } from "../../data/store/store"
 
   const StyledContainer= styled(Box)`
     flex: 1;
@@ -64,18 +60,37 @@ const StyledShowContent = styled(Typography)`
 `
 
 interface ShowProps {
+    id: number
     image: string
     title: string
     seasons: number
     dateAdded: Date
+    phase: "LISTING" | "LOADING" | "ERROR";
+    handleShowClick: (id: string) => void;
 }
 
-export const Show: React.FC<ShowProps> = ({ image, title, seasons, dateAdded }) => {
-
+export const Show = ({ id, image, title, seasons, dateAdded, phase, handleShowClick }: ShowProps) => {
     const formattedDate = dateAdded.toLocaleString('en-US', {month: 'short', year: 'numeric'})
 
+    if (phase === "LOADING") {
+        return (
+            <StyledContainer>
+                <StyledCardContainer>
+                    <StyledCard>
+                        <Skeleton variant="rectangular" width="100%" height="100%" />
+                    </StyledCard>
+                </StyledCardContainer>
+                <StyledShowInfo>
+                    <Skeleton variant="text" width="80%" />
+                    <Skeleton variant="text" width="60%" />
+                    <Skeleton variant="text" width="40%" />
+                </StyledShowInfo>
+            </StyledContainer>
+        )
+    }
+
     return (
-        <StyledContainer>
+        <StyledContainer onClick={()=> handleShowClick(id.toString())}>
             <StyledCardContainer>
                 <StyledCard>
                     <StyledImg src={image}/>

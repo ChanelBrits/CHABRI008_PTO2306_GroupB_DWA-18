@@ -1,11 +1,14 @@
 import { createStore as createZustandStore, StoreApi } from "zustand";
 // import { createStore } from "zustand";
-import { Api } from "../../components/api/createApi.ts"
-import { Preview } from "../../types.ts"
+import { Api, createApi } from "../../components/api/createApi.ts"
+import { Preview, Show } from "../../types.ts"
 
 export type Store = {
     phase: "LISTING" | "LOADING" | "ERROR";
     list: Preview[];
+    showPhase: "LOADING" | "LOADED" | "ERROR" 
+    show: Show | null;
+    fetchShowData: (id: string) => void
 }
 
 const createTypedStore = createZustandStore<Store>();
@@ -14,6 +17,20 @@ export const createStore = (api: Api): StoreApi<Store> => {
   const store = createTypedStore (() => ({
     phase: "LOADING",
     list: [],
+    showPhase: "LOADING",
+    show: null,
+    fetchShowData: (id: string) => {
+      api.getShowData(id).then((data: Show) => {
+        store.setState({
+          showPhase: "LOADED",
+          show: data,
+        });
+      }).catch(() => {
+        store.setState({
+          showPhase: "ERROR",
+        });
+      });
+    }
   }));
 
   api.getPreviewData().then((data: Preview[]) => {
@@ -32,20 +49,5 @@ export const createStore = (api: Api): StoreApi<Store> => {
   return store
 }
 
-// const useStore = create<Store>((set) => ({
-//   phase: "LOADING",
-//   list: [],
-//   fetchPreviewData: async () => {
-//     set({ phase: "LOADING" });
-//     try {
-//       const api = createApi();
-//       const data = await api.getPreviewData();
-//       set({ phase: "LISTING", list: data });
-//     } catch (error) {
-//       set({ phase: "ERROR" });
-//       console.error('Error fetching data:', error);
-//     }
-//   }
-// }));
-
-// export default useStore;
+const api = createApi();
+export const storeInstance = createStore(api);
