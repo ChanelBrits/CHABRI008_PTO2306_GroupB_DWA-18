@@ -7,6 +7,7 @@
 :root {
   --surface: #0e1515;
   --surface-container: #1a2121;
+  --surface-container-high: #242b2c;
   --on-surface: #dde4e4;
   --inverse-on-surface: #2b3232;
   --outline: #859394;

@@ -1,0 +1,52 @@
+.rhap_container {
+  background-color: #1a2121;
+  width: 100%;
+}
+
+.rhap_progress-bar {
+  background-color: #2b3232;
+}
+
+.rhap_progress-filled {
+  background-color: #859394;
+}
+
+.rhap_progress-indicator {
+  background-color: #859394;
+}
+
+.rhap_main-controls-button {
+  color: #859394;
+}
+
+.rhap_main-controls-button:hover {
+  color: #f8e540;
+}
+
+.rhap_play-pause-button {
+  color: #859394;
+}
+
+.rhap_play-pause-button:hover {
+  color: #f8e540;
+}
+
+.rhap_repeat-button {
+  display: none;
+}
+
+.rhap_volume-button {
+  color: #859394;
+}
+
+.rhap_volume-button:hover {
+  color: #f8e540;
+}
+
+.rhap_volume-indicator {
+  background: #859394;
+}
+
+.rhap_volume-bar {
+  background-color: #2b3232; /* New color for the volume bar */
+}

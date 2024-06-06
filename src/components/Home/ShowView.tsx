@@ -61,7 +61,7 @@ type ShowView = {
     showData: Show | null
 }
 
-export const ShowView = ({ showData }: ShowView) => {
+export const ShowView = ({ showData, setSelectedAudio }: ShowView) => {
     const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -107,6 +107,7 @@ export const ShowView = ({ showData }: ShowView) => {
             <EpisodeTable
                 showTitle={showData?.title}
                 episodes={selectedSeason?.episodes || []}
+                setSelectedAudio={setSelectedAudio}
             ></EpisodeTable>
         </StyledBox>
     )
