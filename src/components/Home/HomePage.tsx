@@ -17,15 +17,18 @@ export const HomePage = ({phase, list}: Store) => {
 
     return (
         <>
-            <NavBar/>
-            <MainContent
-                phase={phase}
-                list={list}
-                setSelectedAudio={setSelectedAudio}
-            ></MainContent>
-            <StyledBox>
-                <Player selectedAudio={selectedAudio}></Player>
-            </StyledBox>
+          <NavBar
+            phase={phase}
+            list={list}
+          />
+          <MainContent
+              phase={phase}
+              list={list}
+              setSelectedAudio={setSelectedAudio}
+          ></MainContent>
+          <StyledBox>
+              <Player selectedAudio={selectedAudio}></Player>
+          </StyledBox>
         </>
     )
 }
