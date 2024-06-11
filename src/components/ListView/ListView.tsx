@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom";
 import Fuse from 'fuse.js';
 import { Show } from "../Home/Show";
+import { sortShowsAZ, sortShowsZA, sortShowsDateUpdatedAsc, sortShowsDateUpdatedDesc} from "../Filters/Filters"
 
 const Wrapper = styled(Box)({
   backgroundColor: "#0e1515",
@@ -58,7 +59,7 @@ const ShowGrid = styled(Box)({
 });
 
 export const ListView = ({phase, list, handleShowClick}) => {
-  const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("ascending");
+  const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("descending");
   const [dateOrder, setDateOrder] = useState<"ascending" | "descending">("ascending");
   const [filteredShows, setFilteredShows] = useState(list);
 
@@ -88,17 +89,21 @@ export const ListView = ({phase, list, handleShowClick}) => {
   console.log(filteredShows)
 
   const toggleNameOrder = () => {
+    const sortedShows = nameOrder === "ascending" ? sortShowsAZ(filteredShows) : sortShowsZA(filteredShows);
+    setFilteredShows(sortedShows)
     setNameOrder((prevOrder) => (prevOrder === "ascending" ? "descending" : "ascending"));
   };
 
   const toggleDateOrder = () => {
+    const sortedShows = dateOrder === "ascending" ? sortShowsDateUpdatedAsc(filteredShows) : sortShowsDateUpdatedDesc(filteredShows);
+    setFilteredShows(sortedShows);
     setDateOrder((prevOrder) => (prevOrder === "ascending" ? "descending" : "ascending"));
   };
 
   return (
     <Wrapper>
       <FilterNav>
-        <FilterButton onClick={toggleNameOrder}>{nameOrder === "ascending" ? "A - Z" : "Z - A"}</FilterButton>
+        <FilterButton onClick={toggleNameOrder}>{nameOrder === "ascending" ? "Z - A" : "A - Z"}</FilterButton>
         <FilterButton onClick={toggleDateOrder}>
           {dateOrder === "ascending" ? <UpArrow/> : <DownArrow/>}
           Date Updated</FilterButton>

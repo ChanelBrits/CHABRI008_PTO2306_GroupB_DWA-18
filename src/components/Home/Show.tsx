@@ -70,7 +70,7 @@ interface ShowProps {
 }
 
 export const Show = ({id, image, title, seasons, dateAdded, phase, handleShowClick}: ShowProps) => {
-    const formattedDate = dateAdded.toLocaleString('en-US', {month: 'short', year: 'numeric'})
+    const formattedDate = dateAdded.toLocaleString('en-US', {day:"numeric", month: 'short', year: 'numeric'})
 
     if (phase === "LOADING") {
         return (
