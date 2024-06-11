@@ -2,9 +2,9 @@ import { Box, Button } from "@mui/material";
 import  SouthIcon  from '@mui/icons-material/South';
 import  NorthIcon  from '@mui/icons-material/North';
 import styled from "@emotion/styled";
-import { NavBar } from "../NavBar/NavBar";
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom";
+import Fuse from 'fuse.js';
 import { Show } from "../Home/Show";
 
 const Wrapper = styled(Box)({
@@ -48,15 +48,44 @@ const DownArrow = styled(SouthIcon)({
   paddingRight: "0.2rem"
 })
 
-export const ListView = ({phase, list}) => {
-  
+const ShowGrid = styled(Box)({
+  width: "100%",
+  height: "100%",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", 
+  gap: "0.5rem",
+  overflowY: "auto",
+});
+
+export const ListView = ({phase, list, handleShowClick}) => {
   const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("ascending");
   const [dateOrder, setDateOrder] = useState<"ascending" | "descending">("ascending");
   const [filteredShows, setFilteredShows] = useState(list);
 
+  const fuseOptions = {
+    keys: ['title'], 
+    threshold: 0.4, 
+    includeScore: true, 
+  };
+
+  const fuse = new Fuse(list, fuseOptions);
+
   const location = useLocation();
   const searchInput = location.state?.search || "";
-  console.log(searchInput)
+  
+  useEffect(() => {
+    let filteredResults = list;
+
+    if (searchInput !== "") {
+      const results = fuse.search(searchInput);
+      filteredResults = results.map(({ item }) => item);
+      
+    } 
+
+    setFilteredShows(filteredResults);
+  },[searchInput])
+
+  console.log(filteredShows)
 
   const toggleNameOrder = () => {
     setNameOrder((prevOrder) => (prevOrder === "ascending" ? "descending" : "ascending"));
@@ -75,15 +104,20 @@ export const ListView = ({phase, list}) => {
           Date Updated</FilterButton>
         <FilterButton>Genre</FilterButton>
       </FilterNav>
-      <Box>
-      {/* {filteredShows.map(show => (
+      <ShowGrid>
+      {filteredShows.map((show) => (
           <Show
             key={show.id}
-            list={list}
+            id={show.id}
+            image={show.image}
+            title={show.title}
+            seasons={show.seasons}
+            dateAdded={new Date(show.updated)}
             phase={phase}
+            handleShowClick={handleShowClick}
           />
-        ))} */}
-      </Box>
+        ))}
+      </ShowGrid>
     </Wrapper>
   );
 };
