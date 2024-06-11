@@ -69,10 +69,7 @@ interface ShowProps {
     handleShowClick: (id: string) => void;
 }
 
-export const Show = (props) => {
-    const { list, phase, handleShowClick } = props
-    const { id, image, title, seasons, dateAdded } = list
-
+export const Show = ({id, image, title, seasons, dateAdded, phase, handleShowClick}: ShowProps) => {
     const formattedDate = dateAdded.toLocaleString('en-US', {month: 'short', year: 'numeric'})
 
     if (phase === "LOADING") {

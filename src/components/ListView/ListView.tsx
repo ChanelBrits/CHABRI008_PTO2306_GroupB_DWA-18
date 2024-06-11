@@ -9,8 +9,15 @@ import { Show } from "../Home/Show";
 
 const Wrapper = styled(Box)({
   backgroundColor: "#0e1515",
-  width: "100%",
-  height: "100vh"
+  width: "75%",
+  height: "100vh",
+  marginTop: "7rem",
+  overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "right",
+  alignItems: "center",
+  marginLeft: "auto"
 });
 
 const FilterNav = styled(Box)({
@@ -42,25 +49,14 @@ const DownArrow = styled(SouthIcon)({
 })
 
 export const ListView = ({phase, list}) => {
+  
   const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("ascending");
   const [dateOrder, setDateOrder] = useState<"ascending" | "descending">("ascending");
   const [filteredShows, setFilteredShows] = useState(list);
 
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get('search')?.toLowerCase() || '';
-
-  useEffect(() => {
-    const results = searchQuery
-      ? list.filter(show => show.title.toLowerCase().includes(searchQuery))
-      : list;
-    setFilteredShows(results);
-
-    const newSearchParams = new URLSearchParams(location.search);
-    newSearchParams.delete('search');
-  
-  }, [searchQuery, list, location.search]);
-  
+  const searchInput = location.state?.search || "";
+  console.log(searchInput)
 
   const toggleNameOrder = () => {
     setNameOrder((prevOrder) => (prevOrder === "ascending" ? "descending" : "ascending"));
@@ -72,7 +68,6 @@ export const ListView = ({phase, list}) => {
 
   return (
     <Wrapper>
-      <NavBar phase={phase} list={list}/>
       <FilterNav>
         <FilterButton onClick={toggleNameOrder}>{nameOrder === "ascending" ? "A - Z" : "Z - A"}</FilterButton>
         <FilterButton onClick={toggleDateOrder}>
@@ -81,13 +76,13 @@ export const ListView = ({phase, list}) => {
         <FilterButton>Genre</FilterButton>
       </FilterNav>
       <Box>
-      {filteredShows.map(show => (
+      {/* {filteredShows.map(show => (
           <Show
             key={show.id}
             list={list}
             phase={phase}
           />
-        ))}
+        ))} */}
       </Box>
     </Wrapper>
   );

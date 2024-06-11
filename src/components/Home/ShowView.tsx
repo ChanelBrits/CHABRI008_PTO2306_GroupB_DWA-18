@@ -7,7 +7,12 @@ import { Show, Season, Episode } from "../../types"
 const StyledBox = styled(Box)({
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-end"
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%",
+    height: "calc(100vh - 7rem - 64px)",
+    overflowY: "auto",
+    marginTop: "6rem"
 })
 
 const ShowBanner = styled(Box)({
@@ -17,7 +22,8 @@ const ShowBanner = styled(Box)({
     width: "75%",
     height: "17rem",
     backgroundColor: "#1a2121",
-    borderRadius: "2rem"
+    borderRadius: "2rem",
+    margin: "2rem 0",
 })
 
 const SeasonCardContainer = styled(Box)({
@@ -61,7 +67,7 @@ type ShowView = {
     showData: Show | null
 }
 
-export const ShowView = ({ showData, setSelectedAudio }: ShowView) => {
+export const ShowView = ({ showData, setSelectedAudio, selectedAudio }: ShowView) => {
     const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
 

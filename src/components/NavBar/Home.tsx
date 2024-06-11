@@ -16,7 +16,6 @@ const StyledHomeIcon = styled('img')`
 
 `
 
-
 export const Home = () => {
     return (
       <StyledHomeButton>

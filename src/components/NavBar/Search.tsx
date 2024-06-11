@@ -33,12 +33,8 @@ export const Search = ({ phase, list }) => {
     setSearchInput(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    if (event.key === "Enter") {
-      navigate(`/list-view?search=${searchInput}`)
-      setSearchInput("")
-    }
+  const handleSubmit = () => {
+    navigate("/home/list-view", {state: {search: searchInput}})
   };
 
   return (
@@ -51,7 +47,10 @@ export const Search = ({ phase, list }) => {
         inputProps={{ "aria-label": "search", style: { color: "white" } }}
         value={searchInput}
         onChange={() => handleSearchChange(event)}
-        onKeyDown={() => handleSubmit(event)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter")
+            handleSubmit();
+          }}
       ></StyledInputBase>
     </SearchBar>
   );

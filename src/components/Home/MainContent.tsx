@@ -1,43 +1,75 @@
 import { useState } from "react"
 import { useStore } from "zustand"
-
+import { Router, Routes, Route, useNavigate } from "react-router-dom"
 import { Box } from "@mui/material"
 import styled from "@emotion/styled"
-import { Carousel } from "./Carousel"
-import { Show } from "./Show"
+// import { Carousel } from "./Carousel"
+// import { Show } from "./Show"
 import { Store, storeInstance } from "../../data/store/store"
 import { HomeView } from "./HomeView"
 import { ShowView } from "./ShowView"
+import { ListView } from "../ListView/ListView"
 
 
 const StyledBox = styled(Box)({
     backgroundColor: "#0e1515",
     height: '100vh',
-    width: '75%',
-    marginTop: "7rem",
+    width: '100%',
     overflow: 'hidden', 
     display: 'flex',
     flexDirection: 'column', 
     justifyContent: 'right', 
-    alignItems: 'center',
+    alignItems: 'flex-end',
     marginLeft: 'auto'
 })
 
 
-export const MainContent= ({phase, list, setSelectedAudio}: Store) => {
-    const [ view, setView ] = useState<"home" | "show">("home");
+export const MainContent= ({phase, list, setSelectedAudio, selectedAudio}: Store) => {
     const { fetchShowData, show, showPhase } = useStore(storeInstance);
     const [selectedShow, setSelectedShow] = useState<string | null>(null);
+
+    const navigate = useNavigate()
 
     const handleShowClick = (id: string) => {
         setSelectedShow(id);
         fetchShowData(id)
-        setView("show");
+        navigate("show-view")
       };
 
     return (
         <StyledBox>
-            {view === "home" ? (
+                <Routes>
+                    <Route 
+                    path="/" 
+                    element={
+                        <HomeView 
+                        phase={phase}
+                        list={list}
+                        handleClick={handleShowClick}
+                        />
+                    } 
+                    />
+                    <Route 
+                    path="show-view" 
+                    element={
+                        <ShowView 
+                        showData={showPhase === "LOADED" ? show : null} 
+                        setSelectedAudio={setSelectedAudio}
+                        />
+                    } 
+                    />
+                    <Route 
+                    path="list-view" 
+                    element={
+                        <ListView
+                        phase={phase}
+                        list={list}
+                        />
+                    }
+                    />
+                </Routes>
+
+            {/* {view === "home" ? (
                 <HomeView 
                     phase={phase}
                     list={list}
@@ -49,7 +81,7 @@ export const MainContent= ({phase, list, setSelectedAudio}: Store) => {
                     setSelectedAudio={setSelectedAudio}
                 />
             )
-            } 
+            }  */}
         </StyledBox>
     )
 }
