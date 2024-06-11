@@ -24,7 +24,7 @@ const StyledBox = styled(Box)({
 })
 
 
-export const MainContent= ({phase, list, setSelectedAudio, selectedAudio}: Store) => {
+export const MainContent= ({phase, list, setSelectedAudio, selectedAudio, setSelectedEpisode, selectedEpisode}: Store) => {
     const { fetchShowData, show, showPhase } = useStore(storeInstance);
     const [selectedShow, setSelectedShow] = useState<string | null>(null);
 
@@ -45,7 +45,7 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio}: Store
                         <HomeView 
                         phase={phase}
                         list={list}
-                        handleClick={handleShowClick}
+                        handleShowClick={handleShowClick}
                         />
                     } 
                     />
@@ -55,6 +55,8 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio}: Store
                         <ShowView 
                         showData={showPhase === "LOADED" ? show : null} 
                         setSelectedAudio={setSelectedAudio}
+                        setSelectedEpisode={setSelectedEpisode}
+                        selectedEpisode={selectedEpisode}
                         />
                     } 
                     />
@@ -64,6 +66,7 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio}: Store
                         <ListView
                         phase={phase}
                         list={list}
+                        handleShowClick={handleShowClick}
                         />
                     }
                     />

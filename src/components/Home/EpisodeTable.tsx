@@ -36,12 +36,13 @@ const StyledTableCell = styled(TableCell)({
     color: "#dde4e4", 
   });
 
-export const EpisodeTable = ({episodes, showTitle, setSelectedAudio}) => {
-
-    const handlePlayClick = (url: string) => {
-        setSelectedAudio(url);
-        console.log("play clicked")
-        console.log(url)
+export const EpisodeTable = (props) => {
+    const {episodes, showTitle, setSelectedAudio, setSelectedEpisode} = props
+    
+    const handlePlayClick = (episode) => {
+        setSelectedAudio(episode.file);
+        setSelectedEpisode(episode);
+        console.log(setSelectedEpisode)
     }
 
     return (
@@ -62,7 +63,7 @@ export const EpisodeTable = ({episodes, showTitle, setSelectedAudio}) => {
                 {episodes.map((episode) => (
                 <TableRow key={episode.episode}>
                     <StyledTableCell component="th" scope="row">
-                    <IconButton onClick={() => handlePlayClick(episode.file)}>
+                    <IconButton onClick={() => handlePlayClick(episode)}>
                         <PlayArrowIcon />
                     </IconButton>
                     </StyledTableCell>

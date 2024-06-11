@@ -108,6 +108,7 @@ export const ListView = ({phase, list, handleShowClick}) => {
           {dateOrder === "ascending" ? <UpArrow/> : <DownArrow/>}
           Date Updated</FilterButton>
         <FilterButton>Genre</FilterButton>
+        
       </FilterNav>
       <ShowGrid>
       {filteredShows.map((show) => (
@@ -126,3 +127,7 @@ export const ListView = ({phase, list, handleShowClick}) => {
     </Wrapper>
   );
 };
+
+// When genre button is clicked it should toggle, it should then grab the genre
+// associated with that show preview and create a typeography element that has
+// the name of that genre and underneath that title the shows should appear. Only genres that are included based on the filter should be displayed

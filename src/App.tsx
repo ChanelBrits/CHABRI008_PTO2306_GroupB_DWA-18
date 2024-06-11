@@ -15,6 +15,7 @@ const store = createStore(api);
 
 export const App = () => {
   const [selectedAudio, setSelectedAudio] = useState();
+  const [selectedEpisode, setSelectedEpisode] = useState();
   const phase = useStore(store, (state) => state.phase)
   const previewData = useStore(store, (state) => state.list)
   const {  show, showPhase } = useStore(storeInstance);
@@ -34,6 +35,8 @@ export const App = () => {
             list={previewData}
             selectedAudio={selectedAudio}
             setSelectedAudio={setSelectedAudio}
+            selectedEpisode={selectedEpisode}
+            setSelectedEpisode={setSelectedEpisode}
           />}
         >
           <Route 
