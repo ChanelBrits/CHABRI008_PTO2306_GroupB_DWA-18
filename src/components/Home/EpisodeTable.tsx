@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect} from 'react';
 import {
   Box,
   Table,
@@ -14,18 +14,7 @@ import {
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Episode } from "../../types"
-// import { faker } from '@faker-js/faker';
 
-// const generateFakeEpisodes = () => {
-//     return Array.from({ length: 10 }).map((_, index) => ({
-//       episodeNo: index + 1,
-//       title: faker.music.songName(),
-//       show: faker.company.name(),
-//       length: `${Math.floor(Math.random() * 60)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
-//     }));
-//   };
-  
-//   const episodes = generateFakeEpisodes();
 
 const StyledTableContainer = styled(TableContainer)({
     backgroundColor: "#1a2121",
@@ -37,13 +26,16 @@ const StyledTableCell = styled(TableCell)({
   });
 
 export const EpisodeTable = (props) => {
-    const {episodes, showTitle, setSelectedAudio, setSelectedEpisode} = props
+    const {episodes, showTitle, setSelectedAudio, selectedEpisode, setSelectedEpisode} = props
     
     const handlePlayClick = (episode) => {
         setSelectedAudio(episode.file);
-        setSelectedEpisode(episode);
-        console.log(setSelectedEpisode)
+        setSelectedEpisode({...episode, showTitle});
     }
+
+    useEffect(() => {
+        console.log(selectedEpisode);
+      }, [selectedEpisode]);
 
     return (
         <Box sx={{ width: '75%', mt: 4 }}>

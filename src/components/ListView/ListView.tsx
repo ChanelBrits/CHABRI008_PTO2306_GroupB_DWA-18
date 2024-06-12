@@ -105,7 +105,7 @@ export const ListView = ({phase, list, handleShowClick}) => {
       <FilterNav>
         <FilterButton onClick={toggleNameOrder}>{nameOrder === "ascending" ? "Z - A" : "A - Z"}</FilterButton>
         <FilterButton onClick={toggleDateOrder}>
-          {dateOrder === "ascending" ? <UpArrow/> : <DownArrow/>}
+          {dateOrder === "ascending" ? <DownArrow/> : <UpArrow/>}
           Date Updated</FilterButton>
         <FilterButton>Genre</FilterButton>
         
