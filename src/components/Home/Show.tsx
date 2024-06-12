@@ -60,7 +60,7 @@ const StyledShowContent = styled(Typography)`
 `
 
 interface ShowProps {
-    id: number
+    id: string
     image: string
     title: string
     seasons: number
@@ -90,7 +90,7 @@ export const Show = ({id, image, title, seasons, dateAdded, phase, handleShowCli
     }
 
     return (
-        <StyledContainer onClick={()=> handleShowClick(id.toString())}>
+        <StyledContainer onClick={()=> handleShowClick(id)}>
             <StyledCardContainer>
                 <StyledCard>
                     <StyledImg src={image}/>

@@ -14,7 +14,7 @@ const StyledBox = styled(Box)({
   marginLeft: "auto",
 });
 
-export const HomeView = ({ phase, list, handleClick }: any) => {
+export const HomeView = ({ phase, list, handleShowClick }: any) => {
   const showCards = list.map((show) => (
     <Show
       key={show.id}
@@ -24,7 +24,7 @@ export const HomeView = ({ phase, list, handleClick }: any) => {
       seasons={show.seasons}
       dateAdded={new Date(show.updated)}
       phase={phase}
-      handleShowClick={handleClick}
+      handleShowClick={handleShowClick}
     />
   ));
 

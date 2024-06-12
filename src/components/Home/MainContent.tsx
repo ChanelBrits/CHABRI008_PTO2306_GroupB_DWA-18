@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useStore } from "zustand"
-import { Router, Routes, Route, useNavigate } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 import { Box } from "@mui/material"
 import styled from "@emotion/styled"
 // import { Carousel } from "./Carousel"
@@ -33,7 +33,7 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio, setSel
     const handleShowClick = (id: string) => {
         setSelectedShow(id);
         fetchShowData(id)
-        navigate("show-view")
+        navigate("/home/show-view")
       };
 
     return (
@@ -71,20 +71,6 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio, setSel
                     }
                     />
                 </Routes>
-
-            {/* {view === "home" ? (
-                <HomeView 
-                    phase={phase}
-                    list={list}
-                    handleClick={handleShowClick}
-                />
-            ) : (
-                <ShowView 
-                    showData={showPhase === "LOADED" ? show : null} 
-                    setSelectedAudio={setSelectedAudio}
-                />
-            )
-            }  */}
         </StyledBox>
     )
 }

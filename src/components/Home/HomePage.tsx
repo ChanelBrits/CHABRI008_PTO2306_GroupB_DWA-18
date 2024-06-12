@@ -32,7 +32,7 @@ const Container = styled(Box)({
     width: "100%"
 })
 
-export const HomePage = ({phase, list, setSelectedAudio, selectedAudio, setSelectedEpisode, selectedEpisode}: Store) => {
+export const HomePage = ({phase, list, setSelectedAudio, selectedAudio, setSelectedEpisode, selectedEpisode}) => {
     
 
     return (
@@ -56,6 +56,8 @@ export const HomePage = ({phase, list, setSelectedAudio, selectedAudio, setSelec
                 <Player 
                 selectedAudio={selectedAudio}
                 setSelectedAudio={setSelectedAudio}
+                setSelectedEpisode={setSelectedEpisode}
+                selectedEpisode={selectedEpisode}
                 ></Player>
             </StyledBox>
           </ContentWrapper>
