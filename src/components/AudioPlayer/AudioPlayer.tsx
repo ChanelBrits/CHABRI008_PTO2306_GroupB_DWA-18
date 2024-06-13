@@ -1,9 +1,10 @@
 import  { useState, useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import styled from '@emotion/styled'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css';
 import "./styles.css"
+import {Episode } from "../../types"
 
 const Wrapper = styled(Box)({
     backgroundColor: "#1a2121",
@@ -23,6 +24,11 @@ const Wrapper = styled(Box)({
 //     color: "#dde4e4",
 //     marginLeft: "1rem",
 // })
+
+type props = {
+    selectedAudio: string
+    selectedEpisode: 
+}
 
 export const Player = ({ selectedAudio, selectedEpisode}) => {
     const [isPlaying, setIsPlaying] = useState(false);

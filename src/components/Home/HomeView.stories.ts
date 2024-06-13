@@ -16,7 +16,7 @@ const defaultList = [
       description: 'An example show description',
       seasons: 3,
       updated: new Date().toISOString(),
-      image: 'https://via.placeholder.com/',
+      image: 'https://via.placeholder.com/150',
       genres: [3, 5],
     },
     {
@@ -61,7 +61,7 @@ const defaultList = [
           description: 'An example show description',
           seasons: 3,
           updated: new Date().toISOString(),
-          image: 'https://via.placeholder.com/',
+          image: 'https://via.placeholder.com/150',
           genres: [3, 5],
         },
   ];
@@ -73,9 +73,9 @@ export const Base: StoryObj = {
     }
 }
 
-export const Loading: StoryObj<typeof HomeView> = {
-    args: {
-      phase: 'LOADING',
-      list: defaultList.map(show => ({ ...show, loading: true })),
-    },
-  }
+// export const Loading: StoryObj<typeof HomeView> = {
+//     args: {
+//       phase: 'LOADING',
+//       list: defaultList.map(show => ({ ...show, loading: true })),
+//     },
+//   }
