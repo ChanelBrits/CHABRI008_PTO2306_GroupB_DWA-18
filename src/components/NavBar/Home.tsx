@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 const StyledHomeButton = styled(Button)`
     && {
@@ -17,8 +18,9 @@ const StyledHomeIcon = styled('img')`
 `
 
 export const Home = () => {
+  const navigate = useNavigate()
     return (
-      <StyledHomeButton>
+      <StyledHomeButton onClick={() => {navigate("/home")}}>
         <StyledHomeIcon src="./public/NovaCast.png"/>
       </StyledHomeButton>
     );

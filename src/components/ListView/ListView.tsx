@@ -58,10 +58,10 @@ const ShowGrid = styled(Box)({
   overflowY: "auto",
 });
 
-export const ListView = ({phase, list, handleShowClick}) => {
+export const ListView = ({phase, list: initialList, handleShowClick}) => {
   const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("descending");
   const [dateOrder, setDateOrder] = useState<"ascending" | "descending">("ascending");
-  const [filteredShows, setFilteredShows] = useState(list);
+  const [filteredShows, setFilteredShows] = useState(initialList);
 
   const fuseOptions = {
     keys: ['title'], 
@@ -69,22 +69,22 @@ export const ListView = ({phase, list, handleShowClick}) => {
     includeScore: true, 
   };
 
-  const fuse = new Fuse(list, fuseOptions);
+  const fuse = new Fuse(initialList, fuseOptions);
 
   const location = useLocation();
   const searchInput = location.state?.search || "";
+  const showsFromState = location.state?.shows || initialList;
   
   useEffect(() => {
-    let filteredResults = list;
+    let filteredResults = showsFromState;
 
     if (searchInput !== "") {
       const results = fuse.search(searchInput);
       filteredResults = results.map(({ item }) => item);
-      
     } 
 
     setFilteredShows(filteredResults);
-  },[searchInput])
+  },[searchInput, showsFromState])
 
   console.log(filteredShows)
 

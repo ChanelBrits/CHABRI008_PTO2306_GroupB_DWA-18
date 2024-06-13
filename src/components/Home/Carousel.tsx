@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Box, Slide, Stack, Grid, styled, Typography} from "@mui/material";
+import { IconButton, Box, Slide, Stack, Grid, styled, Typography, Button} from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useNavigate } from "react-router-dom";
+
 
 const StyledIconButton = styled(IconButton)(({ theme, disabled }) => ({
   marginRight: "1rem",
@@ -10,6 +12,18 @@ const StyledIconButton = styled(IconButton)(({ theme, disabled }) => ({
   alignItems: "center",
   color: disabled ? theme.palette.text.disabled : "#52f4ff",
 }));
+
+const StyledShowAllButton = styled(Button)({
+  color: "#52f4ff",
+  borderRadius: "1rem",
+  padding: "0.5rem 1rem",
+  '&:hover': {
+    backgroundColor: "#52f4ff",
+    color: "#2b3232",
+  },
+  marginLeft: "2.5rem",
+  marginTop: "1rem",
+});
 
 interface Carousel {
   title: string;
@@ -22,6 +36,8 @@ export const Carousel:React.FC<Carousel> = ({ title, cardsData }) => {
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
+
+  const navigate = useNavigate();
 
   const cardsPerPage = 5;
 
@@ -39,6 +55,22 @@ export const Carousel:React.FC<Carousel> = ({ title, cardsData }) => {
         setSlideDirection("right");
         setCurrentPage((prevPage) => prevPage - 1);
       };
+
+      const handleShowAllClick = () => {
+        const showData = cardsData.map((card) => {
+          const { id, image, title, seasons, dateAdded } = card.props
+          const date = dateAdded.toString()
+          return {
+            id,
+            image,
+            title,
+            seasons,
+            date
+          }
+        });
+        navigate('/home/list-view', { state: { shows: showData } });
+      };
+      console.log("card data", cards)
 
       const renderCards = () => {
         const startIndex = currentPage * cardsPerPage;
@@ -95,12 +127,26 @@ export const Carousel:React.FC<Carousel> = ({ title, cardsData }) => {
         flexDirection: "column",
       }}
     >
-      <Typography 
-        variant="h4" 
-        sx={{ color: "#fff", 
-        marginLeft: "2.5rem" 
-      }}
-        >{title}</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          maxWidth: "80%"
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          sx={{ color: "#fff", 
+          marginLeft: "2.5rem" 
+        }}
+          >{title}</Typography>
+          <StyledShowAllButton 
+          sx={{
+            justifySelf: "flex-end"
+          }}
+          onClick={handleShowAllClick}>Show All</StyledShowAllButton>
+        </Box>
         <Box
           sx={{
             display: "flex",

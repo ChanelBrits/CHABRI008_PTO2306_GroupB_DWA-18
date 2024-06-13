@@ -11,27 +11,26 @@ const Wrapper = styled(Box)({
     flexDirection: "column",
 })
 
-const TitleContainer = styled(Box)({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    marginBottom: "0.5rem",
-    marginTop: "0.5rem",
-});
+// const TitleContainer = styled(Box)({
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "flex-start",
+//     marginBottom: "0.5rem",
+//     marginTop: "0.5rem",
+// });
 
-const StyledTitle = styled(Typography)({
-    color: "#dde4e4",
-    marginLeft: "1rem",
-})
+// const StyledTitle = styled(Typography)({
+//     color: "#dde4e4",
+//     marginLeft: "1rem",
+// })
 
 export const Player = ({ selectedAudio, selectedEpisode}) => {
     const [isPlaying, setIsPlaying] = useState(false);
-
-    // useEffect(() => {
-    //     if (selectedAudio) {
-    //         setIsPlaying(true);
-    //     }
-    // }, [selectedAudio]);
+    const [playerKey, setPlayerKey] = useState(Date.now());
+    
+    useEffect(() => {
+        setPlayerKey(Date.now());
+    }, [selectedEpisode]);
 
     return (
         <Wrapper>
@@ -40,6 +39,7 @@ export const Player = ({ selectedAudio, selectedEpisode}) => {
                 <StyledTitle variant='subtitle2'>{selectedEpisode.showTitle}</StyledTitle>
             </TitleContainer> */}
             <AudioPlayer
+                key={playerKey}
                 autoPlay
                 src={selectedAudio}
                 onPlay={() => setIsPlaying(true)}

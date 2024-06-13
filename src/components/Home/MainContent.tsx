@@ -20,7 +20,8 @@ const StyledBox = styled(Box)({
     flexDirection: 'column', 
     justifyContent: 'right', 
     alignItems: 'flex-end',
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    marginTop: "1.5rem"
 })
 
 

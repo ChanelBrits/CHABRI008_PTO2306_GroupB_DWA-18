@@ -2,19 +2,20 @@ import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { Carousel } from "./Carousel";
 import { Show } from "./Show";
-import { Store } from "../../data/store/store";
+import { useNavigate } from "react-router-dom";
 
 const StyledBox = styled(Box)({
   height: "100%",
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "flex-end",
   alignItems: "center",
   marginLeft: "auto",
 });
 
 export const HomeView = ({ phase, list, handleShowClick }: any) => {
+  const navigate = useNavigate();
   const showCards = list.map((show) => (
     <Show
       key={show.id}
@@ -28,11 +29,14 @@ export const HomeView = ({ phase, list, handleShowClick }: any) => {
     />
   ));
 
+  const sortedShowCards = [...showCards].sort((a, b) =>
+    a.props.title.localeCompare(b.props.title)
+  );
+
   return (
     <StyledBox>
       <Carousel title="Recommended Shows" cardsData={showCards}></Carousel>
-      {/* <Carousel></Carousel>
-            <Carousel></Carousel> */}
+      <Carousel title="Subscriptions" cardsData={sortedShowCards}></Carousel>
     </StyledBox>
   );
 };
