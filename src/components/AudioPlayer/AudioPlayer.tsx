@@ -27,11 +27,11 @@ const Wrapper = styled(Box)({
 
 type props = {
     selectedAudio: string
-    selectedEpisode: 
+    selectedEpisode: Episode
 }
 
-export const Player = ({ selectedAudio, selectedEpisode}) => {
-    const [isPlaying, setIsPlaying] = useState(false);
+export const Player: React.FC<props> = ({ selectedAudio, selectedEpisode}) => {
+    const [setIsPlaying] = useState(false);
     const [playerKey, setPlayerKey] = useState(Date.now());
     
     useEffect(() => {

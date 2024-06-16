@@ -28,6 +28,14 @@ export type Episode = {
   title: string;
 }
 
+export type Favourite = {
+  episodeId: string;
+  title: string;
+  showTitle: string;
+  season: number;
+  created_at: string;
+}
+
 // const GENRE_MAP = {
 //   1: "Personal Growth",
 //   2: "True Crime and Investigative Journalism",

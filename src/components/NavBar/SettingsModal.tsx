@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from "@mui/material"
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     anchorEl: null | HTMLElement;
@@ -15,9 +16,17 @@ const StyledMenu = styled(Menu)({
 })
 
 export const SettingsModal:React.FC<Props> = ({ anchorEl, setAnchorEl, open }) => {
+      const navigate = useNavigate();
+
       const handleClose = () => {
         setAnchorEl(null);
       };
+
+      const handleFavouritesClick = () => {
+        handleClose();
+        navigate("/home/favourites");
+      };
+
     return (
         <StyledMenu
         id="basic-menu"
@@ -29,7 +38,7 @@ export const SettingsModal:React.FC<Props> = ({ anchorEl, setAnchorEl, open }) =
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleFavouritesClick}>Favourites</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </StyledMenu>
     )

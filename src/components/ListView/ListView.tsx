@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Fuse from 'fuse.js';
 import { Show } from "../Home/Show";
 import { sortShowsAZ, sortShowsZA, sortShowsDateUpdatedAsc, sortShowsDateUpdatedDesc} from "../Filters/Filters"
+import { Preview } from "../../types";
 
 const Wrapper = styled(Box)({
   backgroundColor: "#0e1515",
@@ -58,7 +59,13 @@ const ShowGrid = styled(Box)({
   overflowY: "auto",
 });
 
-export const ListView = ({phase, list: initialList, handleShowClick}) => {
+type ListViewProps = {
+  phase: "LISTING" | "LOADING" | "ERROR";
+  list: Preview[];
+  handleShowClick?: (showId: string) => void;
+};
+
+export const ListView = ({phase, list: initialList, handleShowClick}: ListViewProps) => {
   const [nameOrder, setNameOrder] = useState<"ascending" | "descending">("descending");
   const [dateOrder, setDateOrder] = useState<"ascending" | "descending">("ascending");
   const [filteredShows, setFilteredShows] = useState(initialList);
@@ -84,6 +91,7 @@ export const ListView = ({phase, list: initialList, handleShowClick}) => {
     } 
 
     setFilteredShows(filteredResults);
+    // eslint-disable-next-line
   },[searchInput, showsFromState])
 
   console.log(filteredShows)
@@ -129,5 +137,5 @@ export const ListView = ({phase, list: initialList, handleShowClick}) => {
 };
 
 // When genre button is clicked it should toggle, it should then grab the genre
-// associated with that show preview and create a typeography element that has
+// associated with that show preview and create a typography element that has
 // the name of that genre and underneath that title the shows should appear. Only genres that are included based on the filter should be displayed

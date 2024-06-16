@@ -63,11 +63,15 @@ const ShowMoreButton = styled(Button)({
     }
 })
 
-type ShowView = {
-    showData: Show | null
+
+type ShowViewProps = {
+    showData: Show | null;
+    setSelectedAudio: (audio: string) => void;
+    setSelectedEpisode: (episode: Episode) => void;
+    selectedEpisode: Episode | null;
 }
 
-export const ShowView = ({ showData, setSelectedAudio, selectedAudio, setSelectedEpisode, selectedEpisode }) => {
+export const ShowView = ({ showData, setSelectedAudio, setSelectedEpisode, selectedEpisode }: ShowViewProps) => {
     const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
 

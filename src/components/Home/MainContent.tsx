@@ -9,6 +9,7 @@ import { Store, storeInstance } from "../../data/store/store"
 import { HomeView } from "./HomeView"
 import { ShowView } from "./ShowView"
 import { ListView } from "../ListView/ListView"
+import { FavouritesView } from "../FavouritesView/FavouritesView"
 
 
 const StyledBox = styled(Box)({
@@ -70,6 +71,13 @@ export const MainContent= ({phase, list, setSelectedAudio, selectedAudio, setSel
                         handleShowClick={handleShowClick}
                         />
                     }
+                    />
+
+                    <Route 
+                        path="/favourites" 
+                        element={
+                            <FavouritesView />
+                        }
                     />
                 </Routes>
         </StyledBox>

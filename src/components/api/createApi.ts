@@ -1,4 +1,5 @@
-import { Preview, Show }  from "../../types"
+import { Preview, Show, Favourite }  from "../../types"
+import  supabase from "../../SupaBase/supabaseClient"
 
 const fetchData = async <T>(url: string): Promise<T> => {
   try {
@@ -20,6 +21,9 @@ const showUrl = (id: string) => `https://podcast-api.netlify.app/id/${id}`
 export type Api = {
     getPreviewData: () => Promise<Preview[]>;
     getShowData: (id: string) => Promise<Show>;
+    getFavourites: () => Promise<Favourite[]>;
+    // addFavourite: (favourite: Favourite) => Promise<void>;
+    // removeFavourite: (episode_id: string) => Promise<void>;
   }
 
 const getPreviewData: Api['getPreviewData'] = () => {
@@ -40,9 +44,18 @@ const getShowData: Api['getShowData'] = (id: string) => {
   });
 };
 
+const getFavourites: Api['getFavourites'] = async () => {
+  const { data, error } = await supabase.from('user_favourites').select('*');
+  if (error) {
+    throw new Error('Failed to fetch favourites');
+  }
+  return data as Favourite[];
+};
+
 export const createApi = (): Api => {
     return {
       getPreviewData,
-      getShowData
+      getShowData,
+      getFavourites
     }
   }
