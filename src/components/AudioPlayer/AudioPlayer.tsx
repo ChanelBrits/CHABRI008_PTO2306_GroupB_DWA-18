@@ -1,5 +1,5 @@
 import  { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import styled from '@emotion/styled'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css';
@@ -12,18 +12,18 @@ const Wrapper = styled(Box)({
     flexDirection: "column",
 })
 
-// const TitleContainer = styled(Box)({
-//     display: "flex",
-//     flexDirection: "column",
-//     alignItems: "flex-start",
-//     marginBottom: "0.5rem",
-//     marginTop: "0.5rem",
-// });
+const TitleContainer = styled(Box)({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginBottom: "0.5rem",
+    marginTop: "0.5rem",
+});
 
-// const StyledTitle = styled(Typography)({
-//     color: "#dde4e4",
-//     marginLeft: "1rem",
-// })
+const StyledTitle = styled(Typography)({
+    color: "#dde4e4",
+    marginLeft: "1rem",
+})
 
 type props = {
     selectedAudio: string
@@ -31,25 +31,93 @@ type props = {
 }
 
 export const Player: React.FC<props> = ({ selectedAudio, selectedEpisode}) => {
-    const [setIsPlaying] = useState(false);
+    // eslint-disable-next-line
+    const [isPlaying, setIsPlaying] = useState(false);
     const [playerKey, setPlayerKey] = useState(Date.now());
-    
+    const [currentTime, setCurrentTime] = useState(0);
+
     useEffect(() => {
-        setPlayerKey(Date.now());
-    }, [selectedEpisode]);
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+          if (isPlaying) {
+            e.preventDefault();
+            e.returnValue = '';
+          }
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, [isPlaying]);
+    
+      useEffect(() => {
+        const savedEpisode = localStorage.getItem('lastPlayedEpisode');
+        const savedTime = localStorage.getItem('lastPlayedTime');
+        console.log('Loading saved data:', { savedEpisode, savedTime });
+
+        if (savedEpisode && savedTime) {
+            try {
+                const parsedEpisode: Episode = JSON.parse(savedEpisode);
+                if (parsedEpisode.id === selectedEpisode.id) {
+                    console.log(`Loaded saved episode: ${parsedEpisode.id} at time: ${savedTime}`);
+                    setCurrentTime(Number(savedTime));
+                    setIsPlaying(true);
+                } else {
+                    setCurrentTime(0);
+                    setIsPlaying(false);
+                }
+            } catch (error) {
+                console.error('Error parsing saved episode:', error);
+                setCurrentTime(0);
+                setIsPlaying(false);
+            }
+        } else {
+            setCurrentTime(0);
+            setIsPlaying(false);
+        }
+    }, []);
+
+      useEffect(() => {
+        const saveProgress = () => {
+          try {
+            console.log(`Saving episode: ${JSON.stringify(selectedEpisode)} at time: ${currentTime}`);
+            localStorage.setItem('lastPlayedEpisode', JSON.stringify(selectedEpisode));
+            localStorage.setItem('lastPlayedTime', currentTime.toString());
+          } catch (error) {
+            console.error('Error saving progress:', error);
+          }
+        };
+    
+        window.addEventListener('beforeunload', saveProgress);
+        window.addEventListener('unload', saveProgress);
+    
+        return () => {
+          window.removeEventListener('beforeunload', saveProgress);
+          window.removeEventListener('unload', saveProgress);
+        };
+      }, [selectedEpisode, currentTime]);
+
+      const handleResetHistory = () => {
+        localStorage.removeItem('lastPlayedEpisode');
+        localStorage.removeItem('lastPlayedTime');
+        setCurrentTime(0);
+      };
 
     return (
         <Wrapper>
-            {/* <TitleContainer>
+            <TitleContainer>
                 <StyledTitle variant='subtitle1' sx={{ fontWeight: "600"}}>{selectedEpisode.title}</StyledTitle>
                 <StyledTitle variant='subtitle2'>{selectedEpisode.showTitle}</StyledTitle>
-            </TitleContainer> */}
+            </TitleContainer>
             <AudioPlayer
                 key={playerKey}
-                autoPlay
+                autoPlay={isPlaying}
                 src={selectedAudio}
+                currentTime={currentTime}
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
+                onListen={(e) => setCurrentTime(e.target.currentTime)}
             ></AudioPlayer>
         </Wrapper>
     );

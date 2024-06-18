@@ -104,8 +104,8 @@ export const FavouritesView = () => {
 
     useEffect(() => {
         fetchFavourites();
-      }, [fetchFavourites]);
-      console.log(favourites)
+      }, []);
+      console.log("favourites", favourites)
 
     return (
         <Wrapper>
